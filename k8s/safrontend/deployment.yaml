@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    project: bonus
+    app: frontend
+spec:
+  selector:
+    matchLabels:
+      project: bonus
+      app: frontend
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        project: bonus
+        app: frontend
+    spec:
+      containers:
+        - name: frontend-app
+          image: 'gcr.io/southern-frame-326920/zyh6158/safrontend:v2'
+          ports:
+            - containerPort: 80

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logic-deployment
+  labels:
+    project: bonus
+    app: sa-logic
+spec:
+  selector:
+    matchLabels:
+      project: bonus
+      app: sa-logic
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        project: bonus
+        app: sa-logic
+    spec:
+      containers:
+        - name: sa-logic
+          image: 'gcr.io/southern-frame-326920/zyh6158/salogic:v1'
+          ports:
+            - containerPort: 5000

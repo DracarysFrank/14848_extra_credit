@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  labels:
+    project: bonus
+    app: webapp
+spec:
+  selector:
+    matchLabels:
+      project: bonus
+      app: webapp
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        project: bonus
+        app: webapp
+    spec:
+      containers:
+        - name: webapp-app
+          image: 'gcr.io/southern-frame-326920/zyh6158/sawebapp:v1'
+          env:
+            - name: SA_LOGIC_API_URL
+              value: "http://sa-logic"
+          ports:
+            - containerPort: 8080
